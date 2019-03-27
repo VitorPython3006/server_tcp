@@ -1,0 +1,25 @@
+# -*- encoding: utf-8
+print('  [+] Versão: Beta_0.0.1\n  [+] By: Vitor Manoel Londes Silva')
+import socket, threading
+def conn(obj, cliente):
+ try:
+  obj.send('ok'.encode())
+  print('  [+] Mensagem enviada para: {}'.format(cliente[0]))
+  obj.close()
+  obj.closed()
+ except:
+   print('  [+] Erro ao enviar msg a: {}'.format(cliente[0]))
+
+def sock():
+ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ s.bind(('127.0.0.1',446))
+ s.listen(3)
+ return s
+
+def server():
+ a = sock()
+  while True:
+   (obj, cliente) = a.accept()
+   obj.send('ola, estamos te colocando em uma thread!'.encode())
+   threading.Thread(target=conn, args=(obj, cliente)).start()
+   server()
