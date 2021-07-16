@@ -22,4 +22,4 @@ def server():
    (obj, cliente) = a.accept()
    obj.send('ola, estamos te colocando em uma thread!'.encode())
    threading.Thread(target=conn, args=(obj, cliente)).start()
-   server()
+server()
